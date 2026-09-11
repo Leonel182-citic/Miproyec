@@ -124,3 +124,12 @@ C:\Users\leonc\ProductosApi\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\leonc\ProductosApi\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\leonc\ProductosApi\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\leonc\ProductosApi\obj\Debug\net10.0\ProductosApi.sourcelink.json
+C:\Users\leonc\ProductosApi\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\leonc\ProductosApi\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
+C:\Users\leonc\ProductosApi\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\leonc\ProductosApi\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\leonc\ProductosApi\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\leonc\ProductosApi\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\leonc\ProductosApi\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\leonc\ProductosApi\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\leonc\ProductosApi\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
