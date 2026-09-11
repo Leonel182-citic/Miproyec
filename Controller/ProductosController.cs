@@ -21,7 +21,7 @@ public class ProductosController : ControllerBase
  public async Task<ActionResult<Producto>> GetById(int id)
  {
  var producto = await _context.Productos.FindAsync(id);
- if (producto is nul)
+ if (producto is null)
  return NotFound();
  return producto;
  }
@@ -58,4 +58,22 @@ public class ProductosController : ControllerBase
  await _context.SaveChangesAsync();
  return NoContent();
  }
+ [HttpGet("stock-mayor-10")]
+public async Task<ActionResult<IEnumerable<Producto>>> GetStockMayor10()
+{
+    var productos = await _context.Productos
+        .Where(p => p.Stock > 10)
+        .ToListAsync();
+
+    return productos;
+}
+[HttpGet("precio-mayor-50")]
+public async Task<ActionResult<IEnumerable<Producto>>> GetPrecioMayor1000()
+{
+    var productos = await _context.Productos
+        .Where(p => p.Precio > 50)
+        .ToListAsync();
+
+    return productos;
+}
 }

@@ -7,5 +7,13 @@ public class AppDbContext : DbContext
  : base(options)
  {
  }
+ protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+ base.OnModelCreating(modelBuilder);
+ modelBuilder.Entity<Usuario>()
+ .HasIndex(u => u.Correo)
+ .IsUnique();
+}
  public DbSet<Producto> Productos => Set<Producto>();
+ public DbSet<Usuario> Usuarios => Set<Usuario>();
 }
