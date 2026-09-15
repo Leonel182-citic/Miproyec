@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductosApi.Data;
@@ -5,6 +6,7 @@ using ProductosApi.Models;
 namespace ProductosApi.Controllers;
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class ProductosController : ControllerBase
 {
  private readonly AppDbContext _context;
