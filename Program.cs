@@ -36,7 +36,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
  )
 );
 builder.Services.AddOpenApi();
-builder.Services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
 var jwtKey = builder.Configuration["Jwt:Key"]
  ?? throw new InvalidOperationException("Jwt:Key no está configurado.");
 var jwtIssuer = builder.Configuration["Jwt:Issuer"];
@@ -60,6 +59,7 @@ builder.Services
  };
  });
 builder.Services.AddAuthorization();
+builder.Services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
