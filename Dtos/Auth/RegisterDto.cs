@@ -9,7 +9,7 @@ public class RegisterDto
  [MaxLength(100)]
  public string Primer_Apellido { get; set; } = string.Empty;
  [Required]
- [MinLength(2)]
+ [Range(18, 100)]
  public int Edad { get; set; }
  [Required]
  [EmailAddress]
