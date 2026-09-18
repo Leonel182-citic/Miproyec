@@ -60,11 +60,11 @@ public class ProductosController : ControllerBase
  await _context.SaveChangesAsync();
  return NoContent();
  }
- [HttpGet("stock-mayor-10")]
+ [HttpGet("stock-mayor-1")]
 public async Task<ActionResult<IEnumerable<Producto>>> GetStockMayor10()
 {
     var productos = await _context.Productos
-        .Where(p => p.Stock > 10)
+        .Where(p => p.Stock > 1)
         .ToListAsync();
 
     return productos;
