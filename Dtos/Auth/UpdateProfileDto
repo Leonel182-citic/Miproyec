@@ -1,0 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace ProductosApi.Dtos.Auth;
+
+public class UpdateProfileDto
+{
+    public string Nombre { get; set; } = string.Empty;
+     public string Primer_Apellido { get; set; } = string.Empty;
+
+}

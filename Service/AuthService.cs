@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using ProductosApi.Controllers;
 using ProductosApi.Data;
 using ProductosApi.Dtos.Auth;
 using ProductosApi.Models;
@@ -43,9 +44,25 @@ public class AuthService
  await _context.SaveChangesAsync();
  return CrearRespuesta(usuario);
  }
+ public async Task<AuthResponseDto?> UpdateProfileAsync(
+    int usuarioId, UpdateProfileDto dto)
+{
+    var usuario = await _context.Usuarios
+        .FirstOrDefaultAsync(u => u.Id == usuarioId);
+
+    if (usuario is null || !usuario.Activo)
+        return null;
+
+        usuario.Primer_Apellido = dto.Primer_Apellido?.ToString()?.Trim() ?? string.Empty;
+
+    await _context.SaveChangesAsync();
+
+    return CrearRespuesta(usuario);
+}
  public async Task<AuthResponseDto?> LoginAsync(LoginDto dto)
  {
- var correo = dto.Correo.Trim().ToLower();
+ var correo = dto.Correo.Trim();
+
  var usuario = await _context.Usuarios
  .FirstOrDefaultAsync(u => u.Correo == correo);
  if (usuario is null || !usuario.Activo)

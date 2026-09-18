@@ -55,5 +55,23 @@ public class AuthController : ControllerBase
  Edad,
  correo
  });
- }
+    }
+[HttpPut("profile")]
+[Authorize]
+public async Task<IActionResult> UpdateProfile(UpdateProfileDto dto)
+{
+    var usuarioId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+    var resultado = await _authService.UpdateProfileAsync(usuarioId, dto);
+
+    if (resultado is null)
+        return NotFound("Usuario no encontrado o inactivo.");
+
+    return Ok(resultado);
+}
+}
+
+public class UpdateProfileDto
+{
+    public object? Nombre { get; internal set; }
+    public object? Primer_Apellido { get; internal set; }
 }

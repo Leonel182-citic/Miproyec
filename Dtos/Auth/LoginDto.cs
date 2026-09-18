@@ -7,4 +7,5 @@ public class LoginDto
  public string Correo { get; set; } = string.Empty;
  [Required]
  public string Password { get; set; } = string.Empty;
+    public object? Nombre { get; internal set; }
 }
