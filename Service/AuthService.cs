@@ -4,7 +4,6 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using ProductosApi.Controllers;
 using ProductosApi.Data;
 using ProductosApi.Dtos.Auth;
 using ProductosApi.Models;
@@ -98,6 +97,6 @@ public class AuthService(
 
     internal async Task SaveChangesAsync()
     {
-        throw new NotImplementedException();
+        await _context.SaveChangesAsync();
     }
 }
