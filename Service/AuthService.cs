@@ -9,21 +9,15 @@ using ProductosApi.Data;
 using ProductosApi.Dtos.Auth;
 using ProductosApi.Models;
 namespace ProductosApi.Services;
-public class AuthService
-{
- private readonly AppDbContext _context;
- private readonly IPasswordHasher<Usuario> _passwordHasher;
- private readonly IConfiguration _configuration;
- public AuthService(
+public class AuthService(
  AppDbContext context,
  IPasswordHasher<Usuario> passwordHasher,
  IConfiguration configuration)
- {
- _context = context;
- _passwordHasher = passwordHasher;
- _configuration = configuration;
- }
- public async Task<AuthResponseDto?> RegisterAsync(RegisterDto dto)
+{
+ private readonly AppDbContext _context = context;
+ private readonly IPasswordHasher<Usuario> _passwordHasher = passwordHasher;
+ private readonly IConfiguration _configuration = configuration;
+    public async Task<AuthResponseDto?> RegisterAsync(RegisterDto dto)
  {
  var correo = dto.Correo.Trim().ToLower();
  var existe = await _context.Usuarios
@@ -44,21 +38,6 @@ public class AuthService
  await _context.SaveChangesAsync();
  return CrearRespuesta(usuario);
  }
- public async Task<AuthResponseDto?> UpdateProfileAsync(
-    int usuarioId, UpdateProfileDto dto)
-{
-    var usuario = await _context.Usuarios
-        .FirstOrDefaultAsync(u => u.Id == usuarioId);
-
-    if (usuario is null || !usuario.Activo)
-        return null;
-
-        usuario.Primer_Apellido = dto.Primer_Apellido?.ToString()?.Trim() ?? string.Empty;
-
-    await _context.SaveChangesAsync();
-
-    return CrearRespuesta(usuario);
-}
  public async Task<AuthResponseDto?> LoginAsync(LoginDto dto)
  {
  var correo = dto.Correo.Trim();
@@ -116,4 +95,9 @@ public class AuthService
  Correo = usuario.Correo
  };
  }
+
+    internal async Task SaveChangesAsync()
+    {
+        throw new NotImplementedException();
+    }
 }

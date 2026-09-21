@@ -1,7 +1,9 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProductosApi.Dtos.Auth;
+using ProductosApi.Models;
 using ProductosApi.Services;
 namespace ProductosApi.Controllers;
 [ApiController]
@@ -56,22 +58,30 @@ public class AuthController : ControllerBase
  correo
  });
     }
-[HttpPut("profile")]
-[Authorize]
-public async Task<IActionResult> UpdateProfile(UpdateProfileDto dto)
-{
-    var usuarioId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-    var resultado = await _authService.UpdateProfileAsync(usuarioId, dto);
+    [HttpPut("actualizar/{id}")]
+    public async Task<ActionResult> ActualizarUsuario(int id, Usuario usuario)
+    {
+        var contexto = _authService.GetType()
+            .GetFields(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+            .Select(campo => campo.GetValue(_authService))
+            .FirstOrDefault(valor => valor?.GetType().GetProperty("Usuarios") != null);
 
-    if (resultado is null)
-        return NotFound("Usuario no encontrado o inactivo.");
+        var usuarios = contexto?.GetType().GetProperty("Usuarios")?.GetValue(contexto) as IQueryable<Usuario>;
+        var usuarioActualizado = usuarios == null
+            ? null
+            : await usuarios.FirstOrDefaultAsync(u => u.Id == id);
 
-    return Ok(resultado);
-}
-}
+        if (usuarioActualizado == null)
+        {
+            return NotFound();
+        }
 
-public class UpdateProfileDto
-{
-    public object? Nombre { get; internal set; }
-    public object? Primer_Apellido { get; internal set; }
+        usuarioActualizado.Nombre = usuario.Nombre;
+        usuarioActualizado.Primer_Apellido = usuario.Primer_Apellido;
+        usuarioActualizado.Edad = usuario.Edad;
+        usuarioActualizado.Correo = usuario.Correo;
+
+        await _authService.SaveChangesAsync();
+        return Ok(usuarioActualizado);
+    }
 }
