@@ -8,6 +8,13 @@ using System.Text;
 using ProductosApi.Services;
 using Microsoft.OpenApi;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", policy =>
+        policy.WithOrigins("http://localhost:5173") // puerto por defecto de Vite
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
 builder.Services.AddSwaggerGen(options =>
 {
  options.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
@@ -67,6 +74,7 @@ if (app.Environment.IsDevelopment())
  app.UseSwagger();
  app.UseSwaggerUI();
 }
+app.UseCors("Frontend");  
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
