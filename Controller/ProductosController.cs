@@ -6,7 +6,6 @@ using ProductosApi.Models;
 namespace ProductosApi.Controllers;
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
 public class ProductosController : ControllerBase
 {
  private readonly AppDbContext _context;
@@ -20,6 +19,7 @@ public class ProductosController : ControllerBase
  return await _context.Productos.ToListAsync();
  }
  [HttpGet("{id:int}")]
+  [Authorize(Roles = "Admin")]
  public async Task<ActionResult<Producto>> GetById(int id)
  {
  var producto = await _context.Productos.FindAsync(id);
@@ -28,6 +28,7 @@ public class ProductosController : ControllerBase
  return producto;
  }
  [HttpPost]
+  [Authorize(Roles = "Admin")]
  public async Task<ActionResult<Producto>> Create(Producto producto)
  {
  _context.Productos.Add(producto);
@@ -39,6 +40,7 @@ public class ProductosController : ControllerBase
  );
  }
  [HttpPut("{id:int}")]
+ 
  public async Task<IActionResult> Update(int id, Producto producto)
  {
  if (id != producto.Id)
@@ -51,6 +53,7 @@ public class ProductosController : ControllerBase
  return NoContent();
  }
  [HttpDelete("{id:int}")]
+[Authorize(Roles = "Admin")]
  public async Task<IActionResult> Delete(int id)
  {
  var producto = await _context.Productos.FindAsync(id);
