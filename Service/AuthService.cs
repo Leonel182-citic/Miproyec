@@ -65,7 +65,8 @@ public class AuthService(
  new Claim(ClaimTypes.Name, usuario.Nombre),
  new Claim("Primer_Apellido", usuario.Primer_Apellido),
  new Claim("Edad", usuario.Edad.ToString()),
- new Claim(ClaimTypes.Email, usuario.Correo)
+ new Claim(ClaimTypes.Email, usuario.Correo),
+ new Claim(ClaimTypes.Role, usuario.Rol)
  };
  var key = new SymmetricSecurityKey(
  Encoding.UTF8.GetBytes(
@@ -99,4 +100,5 @@ public class AuthService(
     {
         await _context.SaveChangesAsync();
     }
+
 }
